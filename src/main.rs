@@ -1,10 +1,18 @@
 use std::error::Error;
 use std::fs;
 
+fn ram_dump(ram: &[u8]) {
+    for c in ram.iter() {
+        print!("{:02x} ", c);
+    }
+
+    println!("");
+}
+
 fn main() {
     println!("chip8-rust: CHIP-8 emulator written in Rust");
 
-    let rom = match fs::read("../roms/maze.ch8") {
+    let rom = match fs::read("roms/maze.ch8") {
         Err(why) => panic!("Could not open file: {}", why.description()),
         Ok(file) => file
     };
@@ -17,7 +25,9 @@ fn main() {
         if i >= RAM_SIZE {
             panic!("Out of memory: program too large");
         }
-        println!("Byte {:02}: {:#04x}", i, c);
+        //println!("Byte {:02}: {:#04x}", i, c);
         ram[i + 512] = c;
     }
+
+    ram_dump(&ram);
 }
