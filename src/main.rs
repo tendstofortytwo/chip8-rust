@@ -116,7 +116,7 @@ fn main() {
 
     let args: Vec<String> = env::args().collect();
 
-    let filename = String::from(args[1]);
+    let filename = String::from(&args[1]);
 
     let rom = match fs::read(&filename) {
         Err(why) => panic!("Could not open file: {}", why.description()),
