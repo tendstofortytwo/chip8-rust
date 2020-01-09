@@ -34,7 +34,7 @@ fn ram_dump(ram: &Vec<u8>) {
 
 fn handle_key_events(window: &Window) -> Vec<bool> {
     let mut keys: Vec<bool> = vec![false; 16];
-    window.get_keys_pressed(KeyRepeat::No).map(|keys_received| {
+    window.get_keys().map(|keys_received| {
         for k in keys_received {
             match k {
                 Key::Key1 => keys[0x1] = true,
@@ -160,11 +160,12 @@ fn main() {
         }
     ).unwrap();
 
-    window.limit_update_rate(Some(std::time::Duration::from_micros(16600)));
+    window.limit_update_rate(Some(std::time::Duration::from_micros(5000)));
 
     let mut executing = true;
     let mut waiting_for_keypress = false;
     let mut store_keypress_in: usize = 0x0;
+    let mut time_to_runloop: usize = 4;
 
     while window.is_open() && 
             !window.is_key_down(Key::Escape) &&
@@ -185,16 +186,6 @@ fn main() {
                 }
                 println!("{:01x} pressed!", j);
             }
-        }
-
-        if dt > 0 { dt -= 1; }
-
-        if st > 0 {
-            audio_sink.play();
-            st -= 1;
-        }
-        else if st == 0 {
-            audio_sink.pause();
         }
 
         // get the instruction (2 bytes) out of RAM
@@ -480,6 +471,23 @@ fn main() {
             }
         }
 
-        window.update_with_buffer(&display, WIDTH, HEIGHT).unwrap();
+        if time_to_runloop == 0 {
+            if dt > 0 { dt -= 1; }
+            
+            if st > 0 {
+                audio_sink.play();
+                st -= 1;
+            }
+            else if st == 0 {
+                audio_sink.pause();
+            }
+            
+            window.update_with_buffer(&display, WIDTH, HEIGHT).unwrap();
+            
+            time_to_runloop = 4;
+        }
+        else {
+            time_to_runloop -= 1;
+        }
     }
 }
