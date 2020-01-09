@@ -160,12 +160,14 @@ fn main() {
         }
     ).unwrap();
 
-    window.limit_update_rate(Some(std::time::Duration::from_micros(5000)));
+    // 480 Hz
+    window.limit_update_rate(Some(std::time::Duration::from_micros(2083)));
 
     let mut executing = true;
     let mut waiting_for_keypress = false;
     let mut store_keypress_in: usize = 0x0;
-    let mut time_to_runloop: usize = 4;
+    // run once every 8 iterations, ie. 60Hz
+    let mut time_to_runloop: usize = 8;
 
     while window.is_open() && 
             !window.is_key_down(Key::Escape) &&
