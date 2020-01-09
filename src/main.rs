@@ -175,14 +175,15 @@ fn main() {
 
         let keys_pressed = handle_key_events(&window);
 
-        if waiting_for_keypress {
-            for (j, k) in keys_pressed.iter().enumerate() {
-                if *k {
+        for (j, k) in keys_pressed.iter().enumerate() {
+            if *k {
+                if waiting_for_keypress {
                     executing = true;
                     waiting_for_keypress = false;
                     v[store_keypress_in] = j as u8;
                     break;
                 }
+                println!("{:01x} pressed!", j);
             }
         }
 
@@ -205,7 +206,7 @@ fn main() {
         // or not; in most cases we will, but sometimes not
         let mut next_instruction = true;
 
-        println!("{:03x}, {:04x}", pc, instruction);
+        println!("{:03x}, {:04x}, {:04x}, {:02x?}", pc, instruction, i, v);
 
         if executing {
             // all instruction comments below will follow the format wxyz for
@@ -213,14 +214,13 @@ fn main() {
             match instruction {
                 0x00e0 => {
                     // clear display
-                    for i in 0..display.len() {
-                        display[i] = PX_OFF;
+                    for j in 0..display.len() {
+                        display[j] = PX_OFF;
                     }
                 },
                 0x00ee => {
                     // return from subroutine and panic if no subroutine to return from
                     pc = stack.pop().expect("Stack empty, cannot return from subroutine!");
-                    next_instruction = false;
                 },
                 0x1000..=0x1fff => {
                     // jump to memory location xyz
@@ -230,7 +230,7 @@ fn main() {
                 0x2000..=0x2fff => {
                     // call memory location xyz as subroutine (that will eventually return)
                     let loc = get_hex_digits(&instruction, 3, 0);
-                    stack.push(loc);
+                    stack.push(pc);
                     pc = loc;
                     next_instruction = false;
                 },
@@ -243,7 +243,7 @@ fn main() {
                     }
                 },
                 0x4000..=0x4fff => {
-                    // skip next instruction if Vx == yz
+                    // skip next instruction if Vx != yz
                     let val = get_hex_digits(&instruction, 2, 0);
                     let reg = get_hex_digits(&instruction, 1, 2);
                     if v[reg] != val as u8 {
