@@ -22,6 +22,7 @@ const RAM_SIZE: usize = 4096;
 const REGISTER_COUNT: usize = 16;
 const PX_OFF: u32 = 0x81c784;
 const PX_ON: u32 = 0x29302a;
+const RUNLOOP_TIMER_DEFAULT: usize = 8;
 
 fn handle_key_events(window: &Window) -> Vec<bool> {
     let mut keys: Vec<bool> = vec![false; 16];
@@ -158,7 +159,7 @@ fn main() {
     let mut waiting_for_keypress = false;
     let mut store_keypress_in: usize = 0x0;
     // run once every 8 iterations, ie. 60Hz
-    let mut time_to_runloop: usize = 8;
+    let mut time_to_runloop: usize = RUNLOOP_TIMER_DEFAULT;
 
     while window.is_open() && 
             !window.is_key_down(Key::Escape) &&
@@ -474,7 +475,7 @@ fn main() {
             
             window.update_with_buffer(&display, WIDTH, HEIGHT).unwrap();
             
-            time_to_runloop = 4;
+            time_to_runloop = RUNLOOP_TIMER_DEFAULT;
         }
         else {
             time_to_runloop -= 1;
