@@ -11,7 +11,6 @@ use rodio::Sink;
 
 use minifb::{
     Key, 
-    KeyRepeat, 
     Window, 
     WindowOptions, 
     Scale
@@ -23,14 +22,6 @@ const RAM_SIZE: usize = 4096;
 const REGISTER_COUNT: usize = 16;
 const PX_OFF: u32 = 0x81c784;
 const PX_ON: u32 = 0x29302a;
-
-fn ram_dump(ram: &Vec<u8>) {
-    for c in ram {
-        print!("{:02x} ", c);
-    }
-
-    println!("");
-}
 
 fn handle_key_events(window: &Window) -> Vec<bool> {
     let mut keys: Vec<bool> = vec![false; 16];
