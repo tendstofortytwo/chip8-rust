@@ -199,9 +199,9 @@ fn main() {
         // or not; in most cases we will, but sometimes not
         let mut next_instruction = true;
 
-        println!("{:03x}, {:04x}, {:04x}, {:02x?}", pc, instruction, i, v);
 
         if executing {
+            println!("{:03x}, {:04x}, {:04x}, {:02x?}", pc, instruction, i, v);
             // all instruction comments below will follow the format wxyz for
             // referring to instruction
             match instruction {
@@ -364,19 +364,16 @@ fn main() {
                     }
                     for (k, b) in bytes_to_print.iter().enumerate() {
                         for j in 0..8 {
-                            let x = (init_x as usize + k) % WIDTH;
-                            let y = (init_y as usize + j) % HEIGHT;
+                            let x = (init_x as usize + j) % WIDTH;
+                            let y = (init_y as usize + k) % HEIGHT;
                             let coord = (y * WIDTH) + x;
                             let is_old_set = display[coord] == PX_ON;
-                            // xor pixels, if existing bit erased then set collision bit to true
-                            display[coord] = if is_bit_set(b, j as u8) {
+                            // xor pixels bits only if they are set
+                            // if existing bit erased then set collision bit to true
+                            display[coord] = if is_bit_set(b, (8-j-1) as u8) {
                                 if is_old_set { collision = 1; PX_OFF }
                                 else { PX_ON }
-                            }
-                            else {
-                                if is_old_set { PX_ON }
-                                else { PX_OFF }
-                            };
+                            } else { display[coord] };
                             v[0xf] = collision;
                         }
                     }
