@@ -19,9 +19,7 @@ The emulator runs at 480 Hz and updates the delay and sound timers (and the scre
 1 - 1|2 - 2|3 - 3|C - 4
 -----|-----|-----|-----
 4 - Q|5 - W|6 - E|D - R
------|-----|-----|-----
 7 - A|8 - S|9 - D|F - 4
------|-----|-----|-----
 A - Z|0 - X|B - C|F - V
 
 The screen runs at the default resolution of 64x32, scaled up 8x for better visibility.
