@@ -16,6 +16,8 @@ Given a CHIP-8 ROM, you can start the ROM in the emulator like so:
 
 The emulator runs at 480 Hz and updates the delay and sound timers (and the screen) once every 8 cycles, so at 60 Hz. The input is mapped similarly to most other CHIP-8 emulators I have come across:
 
+Row 1|Row 2|Row 3|Row 4
+-----|-----|-----|-----
 1 - 1|2 - 2|3 - 3|C - 4
 4 - Q|5 - W|6 - E|D - R
 7 - A|8 - S|9 - D|F - 4
