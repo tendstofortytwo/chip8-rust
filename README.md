@@ -2,7 +2,7 @@
 
 An implementation of the CHIP-8 programming language in Rust.
 
-![Screenshot of emulator playing Space Invaders](screenshot-spaceinvaders.png)
+<img src="screenshot-spaceinvaders.png" width="500">
 
 ## Running a ROM
 
