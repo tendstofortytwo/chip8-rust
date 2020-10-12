@@ -4,6 +4,12 @@ An implementation of the CHIP-8 programming language in Rust.
 
 <img src="screenshot-spaceinvaders.png" width="500">
 
+## Prerequisites
+
+The sound library requires you to install a package on Linux to build successfully:
+
+    sudo apt-get install libsdl2-dev
+
 ## Running a ROM
 
 Given a CHIP-8 ROM, you can start the ROM in the emulator like so:
