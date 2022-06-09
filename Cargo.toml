@@ -4,7 +4,7 @@ version = "1.0.0"
 authors = ["Naman Sood <mail@nsood.in>"]
 edition = "2018"
 description = "CHIP-8 interpreter in Rust"
-repository = "https://github.com/namansood/chip8-rust"
+repository = "https://github.com/tendstofortytwo/chip8-rust"
 readme = "README.md"
 license = "MIT"
 
