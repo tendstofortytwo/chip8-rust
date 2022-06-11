@@ -9,6 +9,6 @@ readme = "README.md"
 license = "MIT"
 
 [dependencies]
-minifb = "0.15.1"
+minifb = "0.23.0"
 rodio = "0.15"
 rand = "0.7"

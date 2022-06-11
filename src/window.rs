@@ -40,28 +40,26 @@ impl Window {
 
     pub fn handle_key_events(&self) -> [bool; 16] {
         let mut keys = [false; 16];
-        self.win.get_keys().map(|keys_received| {
-            for k in keys_received {
-                match k {
-                    Key::Key1 => keys[0x1] = true,
-                    Key::Key2 => keys[0x2] = true,
-                    Key::Key3 => keys[0x3] = true,
-                    Key::Key4 => keys[0xc] = true,
-                    Key::Q => keys[0x4] = true,
-                    Key::W => keys[0x5] = true,
-                    Key::E => keys[0x6] = true,
-                    Key::R => keys[0xd] = true,
-                    Key::A => keys[0x7] = true,
-                    Key::S => keys[0x8] = true,
-                    Key::D => keys[0x9] = true,
-                    Key::F => keys[0xe] = true,
-                    Key::Z => keys[0xa] = true,
-                    Key::X => keys[0x0] = true,
-                    Key::C => keys[0xb] = true,
-                    Key::V => keys[0xf] = true,
-                    _ => ()
-                };
-            }
+        self.win.get_keys().iter().for_each(|k| {
+            match k {
+                Key::Key1 => keys[0x1] = true,
+                Key::Key2 => keys[0x2] = true,
+                Key::Key3 => keys[0x3] = true,
+                Key::Key4 => keys[0xc] = true,
+                Key::Q => keys[0x4] = true,
+                Key::W => keys[0x5] = true,
+                Key::E => keys[0x6] = true,
+                Key::R => keys[0xd] = true,
+                Key::A => keys[0x7] = true,
+                Key::S => keys[0x8] = true,
+                Key::D => keys[0x9] = true,
+                Key::F => keys[0xe] = true,
+                Key::Z => keys[0xa] = true,
+                Key::X => keys[0x0] = true,
+                Key::C => keys[0xb] = true,
+                Key::V => keys[0xf] = true,
+                _ => ()
+            };
         });
         keys
     }
