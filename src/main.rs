@@ -37,9 +37,9 @@ fn main() {
     };
 
     let audio = match Audio::new() {
-        Some(a) => a,
-        None => {
-            return eprintln!("Could not initialize audio device");
+        Ok(a) => a,
+        Err(err) => {
+            return eprintln!("Could not initialize audio device: {}", err);
         }
     };
 
